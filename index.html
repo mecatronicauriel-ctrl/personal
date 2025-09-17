@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dr. Uriel Rivera‑Ortega | Investigación Científica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1e6fba;
+      --secondary-color: #e6f2fa;
+      --text-color: #333;
+      --background-color: #ffffff;
+      --focus-outline: 3px solid #ffa500; /* para foco visible */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    /* Menu toggle button */
+    #menu-toggle {
+      display: none;
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1001;
+    }
+    #menu-toggle:focus {
+      outline: var(--focus-outline);
+    }
+
+    nav {
+      margin: 20px auto;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      transition: max-height 0.3s ease;
+    }
+
+    nav[aria-expanded="false"] {
+      max-height: 0;
+      overflow: hidden;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav[aria-expanded="true"] {
+      max-height: 1000px; /* suficientemente grande para mostrar todo */
+    }
+
+    .menu-item {
+      width: 150px;
+      text-align: center;
+      margin: 10px;
+      background: var(--background-color);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: var(--text-color);
+      display: inline-block;
+    }
+
+    .menu-item:focus-visible {
+      outline: var(--focus-outline);
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Aquí cambiamos tamaño global de imágenes de menú */
+    .menu-item img {
+      width: 80px; /* Cambia este valor para hacerlas más grandes o pequeñas */
+      height: 80px;
+      object-fit: contain;
+    }
+
+    /* Clase para imágenes que quieras más grandes */
+    .img-grande {
+      width: 120px !important;
+      height: 120px !important;
+    }
+
+    .menu-item span {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: var(--background-color);
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      flex-grow: 1;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 5px;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus-visible {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #dfe9ee;
+      font-size: 0.9em;
+    }
+
+    footer a:focus-visible {
+      outline: var(--focus-outline);
+    }
+
+    #enlaces-destacados {
+      margin: 40px auto;
+      max-width: 900px;
+      padding: 20px;
+      background: #f0f4f8;
+      border-radius: 10px;
+    }
+
+    #enlaces-destacados h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .links-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: var(--text-color);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .link-item:focus-visible {
+      outline: var(--focus-outline);
+    }
+
+    .link-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .link-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+
+    .link-item span {
+      font-weight: 500;
+    }
+
+    #contador-visitas {
+      font-size: 0.8em;
+      color: #666;
+      margin-top: 10px;
+      user-select: none;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        max-height: none !important; /* Para escritorio tenga altura normal */
+      }
+      nav[aria-expanded="true"] {
+        max-height: none;
+      }
+      nav[aria-expanded="false"] {
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: var(--background-color);
+        position: fixed;
+        top: 60px;
+        right: 0;
+        padding-top: 10px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        z-index: 1000;
+        transition: max-height 0.3s ease;
+      }
+
+      .menu-item {
+        width: 90%;
+        margin: 8px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header role="banner">
+    <h1>Dr. Uriel Rivera‑Ortega</h1>
+    <p>Ciencia · Óptica · Interferometría · Educación STEM</p>
+    <!-- Botón hamburguesa para móviles -->
+    <button id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir menú de navegación">
+      ☰
+    </button>
+  </header>
+
+  <nav id="main-navigation" role="navigation" aria-label="Menú principal" aria-expanded="false">
+    <a href="#optica" class="menu-item" tabindex="0">
+      <img src="airy.jpg" class="img-grande" alt="Ícono de Óptica">
+      <span>Óptica</span>
+    </a>
+    <a href="#interferometria" class="menu-item" tabindex="0">
+      <img src="prisma.jpg" class="img-grande" alt="Ícono de Interferometría">
+      <span>Interferometría</span>
+    </a>
+    <a href="#vision" class="menu-item" tabindex="0">
+      <img src="vision.jpg" class="img-grande" alt="Ícono de Visión Computacional">
+      <span>Visión Computacional</span>
+    </a>
+    <a href="#educacion" class="menu-item" tabindex="0">
+      <img src="stem.jpg" class="img-grande" alt="Ícono de Educación STEM">
+      <span>Educación STEM</span>
+    </a>
+    <a href="#publicaciones" class="menu-item" tabindex="0">
+      <img src="scholar.jpg" class="img-grande" alt="Ícono de Publicaciones">
+      <span>Publicaciones</span>
+    </a>
+  </nav>
+
+  <main class="container" role="main">
+    <section id="sobre-mi" tabindex="-1">
+      <h2>Sobre mí</h2>
+      <p><strong>Uriel Rivera-Ortega</strong><br>
+      Universidad Tecnológica de Puebla, México</p>
+
+      <p>Uriel Rivera-Ortega was born in Orizaba, Veracruz, México. He graduated in Mechatronics Engineering from the Universidad Popular Autónoma del Estado de Puebla (UPAEP), México in 2005. During this period, he studied one semester at the University of Oklahoma (OU), US in 2004.</p>
+
+      <p>He received his Master of Science (MSc) and his Doctor of Philosophy (PhD) in 2009 and 2013, respectively, from the Benemérita Universidad Autónoma de Puebla (BUAP), México; working with optical testing and optical interferometry.</p>
+
+      <p>He did a postdoctoral research at the University of Antwerpen, Belgium, developing new phase-shifting techniques for interferometry. His scientific interest and fields of research include: optical systems, optical interferometry, automation and electronics, and the development of educative/demonstrative STEM devices in the field of engineering and physics.</p>
+
+      <p>Currently, he is working in a university in Puebla, México and also in a Makerspace, helping new generations of students in creating STEM projects.</p>
+    </section>
+
+    <section id="optica" tabindex="-1">
+      <h2>Óptica</h2>
+      <p>Óptica geométrica, refracción, aberración cromática, dispersión de la luz y lentes.</p>
+    </section>
+
+    <section id="interferometria" tabindex="-1">
+      <h2>Interferometría</h2>
+      <p>Aplicaciones de patrones de interferencia y difracción para diagnóstico experimental.</p>
+    </section>
+
+    <section id="vision" tabindex="-1">
+      <h2>Visión Computacional y Automatización</h2>
+      <p>Uso de microcontroladores, cámaras y plataformas educativas para medir fenómenos ópticos.</p>
+    </section>
+
+    <section id="educacion" tabindex="-1">
+      <h2>Educación STEM</h2>
+      <p>Diseño de recursos didácticos, kits accesibles, y prácticas científicas para estudiantes.</p>
+    </section>
+
+    <section id="publicaciones" tabindex="-1">
+      <h2>Publicaciones</h2>
+      <p>Consulta mis publicaciones académicas en los siguientes perfiles:</p>
+      <ul>
+        <li><a href="https://scholar.google.com/citations?user=F160PocAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a></li>
+        <li><a href="https://www.researchgate.net/profile/Uriel-Rivera-Ortega" target="_blank" rel="noopener noreferrer">ResearchGate</a></li>
+        <li><a href="https://www.intechopen.com/profiles/108242" target="_blank" rel="noopener noreferrer">IntechOpen</a></li>
+        <li><a href="https://spie.org/profile/Uriel.Rivera-Ortega-158115" target="_blank" rel="noopener noreferrer">SPIE</a></li>
+      </ul>
+      <p>📧 Para contacto académico o colaboración: <a href="mailto:mecatronica00@hotmail.com">mecatronica00@hotmail.com</a></p>
+    </section>
+
+    <section id="enlaces-destacados" tabindex="-1">
+      <h2>Enlaces Destacados</h2>
+      <div class="links-grid">
+        <a href="https://www.gob.mx/conacyt/es" target="_blank" rel="noopener noreferrer" class="link-item">
+          <img src="cona.jpg" class="img-grande" alt="Logo de CONACYT">
+          <span>CONACYT</span>
+        </a>
+        <a href="https://miic.conacyt.mx/sni/acceso.html" target="_blank" rel="noopener noreferrer" class="link-item">
+          <img src="snii.jpg" class="img-grande" alt="Logo de SNI II">
+          <span>SNI II</span>
+        </a>
+        <a href="https://secihti.puebla.gob.mx/" target="_blank" rel="noopener noreferrer" class="link-item">
+          <img src="secretaria.jpg" class="img-grande" alt="Logo SECIHTI Puebla">
+          <span>SECIHTI Puebla</span>
+        </a>
+        <a href="https://www.youtube.com/@urielrivera2604" target="_blank" rel="noopener noreferrer" class="link-item">
+          <img src="youtube.jpg" class="img-grande" alt="Logo YouTube">
+          <span>Canal de YouTube</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    © 2025 Dr. Uriel Rivera‑Ortega — Todos los derechos reservados<br>
+    📧 <a href="mailto:mecatronica00@hotmail.com">mecatronica00@hotmail.com</a>
+    <div id="contador-visitas" aria-live="polite" aria-atomic="true" title="Número de visitas a esta página desde este navegador"></div>
+  </footer>
+
+  <script>
+    // Contador de visitas usando localStorage
+    (function() {
+      let visitas = localStorage.getItem('contadorVisitas');
+      if (!visitas) {
+        visitas = 0;
+      }
+      visitas = parseInt(visitas) + 1;
+      localStorage.setItem('contadorVisitas', visitas);
+      document.getElementById('contador-visitas').textContent = 'Visitas: ' + visitas;
+    })();
+
+    // Toggle menú hamburguesa para móvil
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('main-navigation');
+
+    menuToggle.addEventListener('click', () => {
+      const expanded = nav.getAttribute('aria-expanded') === 'true' || false;
+      nav.setAttribute('aria-expanded', !expanded);
+      menuToggle.setAttribute('aria-expanded', !expanded);
+      menuToggle.setAttribute('aria-label', !expanded ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+    });
+
+    // Cerrar menú al hacer click en un enlace (móvil)
+    const menuLinks = nav.querySelectorAll('a.menu-item');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if(window.innerWidth <= 768) {
+          nav.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-label', 'Abrir menú de navegación');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
