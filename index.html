@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dr. Uriel Rivera‑Ortega | Investigación Científica</title>
+  <meta name="viewport" content="width=1000" />
+  <title>Dr. Uriel Rivera-Ortega | Investigación Científica</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -46,23 +46,9 @@
       margin-top: 10px;
     }
 
-    /* Menu toggle button */
+    /* Botón menú oculto (no se usa en vista escritorio forzada) */
     #menu-toggle {
       display: none;
-      background: var(--primary-color);
-      border: none;
-      color: white;
-      font-size: 1.5em;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1001;
-    }
-    #menu-toggle:focus {
-      outline: var(--focus-outline);
     }
 
     nav {
@@ -71,18 +57,6 @@
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
-      transition: max-height 0.3s ease;
-    }
-
-    nav[aria-expanded="false"] {
-      max-height: 0;
-      overflow: hidden;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    nav[aria-expanded="true"] {
-      max-height: 1000px; /* suficientemente grande para mostrar todo */
     }
 
     .menu-item {
@@ -108,14 +82,14 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
-    /* Aquí cambiamos tamaño global de imágenes de menú */
+    /* Tamaño global de imágenes de menú */
     .menu-item img {
-      width: 80px; /* Cambia este valor para hacerlas más grandes o pequeñas */
+      width: 80px;
       height: 80px;
       object-fit: contain;
     }
 
-    /* Clase para imágenes que quieras más grandes */
+    /* Clase para imágenes más grandes */
     .img-grande {
       width: 120px !important;
       height: 120px !important;
@@ -229,54 +203,16 @@
       margin-top: 10px;
       user-select: none;
     }
-
-    @media (max-width: 768px) {
-      nav {
-        max-height: none !important; /* Para escritorio tenga altura normal */
-      }
-      nav[aria-expanded="true"] {
-        max-height: none;
-      }
-      nav[aria-expanded="false"] {
-        max-height: 0;
-        overflow: hidden;
-      }
-
-      nav {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        background: var(--background-color);
-        position: fixed;
-        top: 60px;
-        right: 0;
-        padding-top: 10px;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        z-index: 1000;
-        transition: max-height 0.3s ease;
-      }
-
-      .menu-item {
-        width: 90%;
-        margin: 8px auto;
-      }
-    }
   </style>
 </head>
 <body>
 
   <header role="banner">
-    <h1>Dr. Uriel Rivera‑Ortega</h1>
+    <h1>Dr. Uriel Rivera-Ortega</h1>
     <p>Ciencia · Óptica · Interferometría · Educación STEM</p>
-    <!-- Botón hamburguesa para móviles -->
-    <button id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir menú de navegación">
-      ☰
-    </button>
   </header>
 
-  <nav id="main-navigation" role="navigation" aria-label="Menú principal" aria-expanded="false">
+  <nav id="main-navigation" role="navigation" aria-label="Menú principal">
     <a href="#optica" class="menu-item" tabindex="0">
       <img src="airy.jpg" class="img-grande" alt="Ícono de Óptica">
       <span>Óptica</span>
@@ -370,7 +306,7 @@
   </main>
 
   <footer role="contentinfo">
-    © 2025 Dr. Uriel Rivera‑Ortega — Todos los derechos reservados<br>
+    © 2025 Dr. Uriel Rivera-Ortega — Todos los derechos reservados<br>
     📧 <a href="mailto:mecatronica00@hotmail.com">mecatronica00@hotmail.com</a>
     <div id="contador-visitas" aria-live="polite" aria-atomic="true" title="Número de visitas a esta página desde este navegador"></div>
   </footer>
@@ -386,30 +322,8 @@
       localStorage.setItem('contadorVisitas', visitas);
       document.getElementById('contador-visitas').textContent = 'Visitas: ' + visitas;
     })();
-
-    // Toggle menú hamburguesa para móvil
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('main-navigation');
-
-    menuToggle.addEventListener('click', () => {
-      const expanded = nav.getAttribute('aria-expanded') === 'true' || false;
-      nav.setAttribute('aria-expanded', !expanded);
-      menuToggle.setAttribute('aria-expanded', !expanded);
-      menuToggle.setAttribute('aria-label', !expanded ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
-    });
-
-    // Cerrar menú al hacer click en un enlace (móvil)
-    const menuLinks = nav.querySelectorAll('a.menu-item');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if(window.innerWidth <= 768) {
-          nav.setAttribute('aria-expanded', 'false');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.setAttribute('aria-label', 'Abrir menú de navegación');
-        }
-      });
-    });
   </script>
 
 </body>
 </html>
+
